@@ -31,7 +31,8 @@ String lastPos="";
 
 String input = "";
 
-String option1="Regret latest move", option2="Show List of participants", option3="About";
+String option1="Regret latest move", option2="Set White background", option3="Set map background", 
+option4="Show List of participants", option5="About";
 
 final String P1="MaH", P2="SK", P3="RN", P4="HK";
 
@@ -69,13 +70,9 @@ void setup() {
   bg=loadImage("200map.png");
 
   //Add players
-  playerList.add("A1");
-  playerList.add("B2");
-  playerList.add("C3");
-  playerList.add("D4");
-  playerList.add("E5");
-  playerList.add("F6");
-  playerList.add("G7");
+  playerList.add("Sruthi");
+  playerList.add("Mosa");
+  playerList.add("Rufael");
 
   for (int i=0;i<playerList.size();i++) {
     println(i+"  "+playerList.get(i));
@@ -89,16 +86,20 @@ void setup() {
 
   scale=1;
 }
-
+boolean map=false;
 void draw() {
-  background(240);
 
 
   pushMatrix();
   scale(scale);
   textSize(15);
-  translate(px, py);  
-  image(bg, 0, 0, bg.width, bg.height);
+  translate(px, py); 
+  if (map) { 
+    image(bg, 0, 0, bg.width, bg.height);
+  }
+  else {
+    background(240);
+  }
   pushMatrix();
   posX=mouseX/scale-px;
   posY=mouseY/scale-py;
@@ -141,7 +142,10 @@ void onKetaiListSelection(KetaiList klist) {
   if (selection == option1) {
     goBack();
   } else if (selection == option2) {
+    map=false;
   } else if (selection == option3) {
+    map=true;
+  } else if (selection == option4) {
   }
 }
 
