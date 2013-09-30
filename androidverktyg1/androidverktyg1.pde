@@ -49,7 +49,7 @@ final String P1="MaH", P2="SK", P3="RN", P4="HK";
 
 String player="";
 
-final int P1CLR = #B44272, P2CLR = #5842B4, P3CLR = #42B49E, P4CLR = #B49042;
+//final int P1CLR = #B44272, P2CLR = #5842B4, P3CLR = #42B49E, P4CLR = #B49042;
 
 int turnCounter=0, pCounter=0;
 int noOfPlayers=4;
@@ -121,6 +121,7 @@ void setup() {
 
   scale=1;
 }
+int pcIndicator;
 boolean map=false;
 void draw() {
 
@@ -153,7 +154,12 @@ void draw() {
   textSize(15);
   text(timeStamp, width-textWidth(timeStamp), height-20);
   textSize(30);
-  text(turnCounter+"| "+lastPos+" "+input+"\n"+player, 10, 40);
+  text(turnCounter+"| "+lastPos+" "+input+"\n    "+player, 10, 60);
+  /*
+  pushStyle();
+   fill(pcIndicator);
+   rect(10, 80, 15, 15);
+   popStyle();*/
 }
 //Save data to the memory card
 void saveData() {

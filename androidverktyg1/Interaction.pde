@@ -55,7 +55,19 @@ void onTap(float x, float y) {
   println("placed: " + info);
 }
 void onLongPress( float x, float y) {
-  //saveData();
+  if (addable) {
+    //turnCounter++;
+    s=player+"||"+turnCounter;
+    textSize(15);
+    //playerSwitch();
+    structList.add(new Structure(posX, posY));
+
+    showVirtualKeyboard();
+    addable=false;
+  } else {
+    hideVirtualKeyboard();
+    addable=true;
+  }
 }
 //Zoom
 void onPinch(float x, float y, float d) {

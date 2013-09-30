@@ -20,21 +20,30 @@ class Structure {
     placed=input;
     println("placed är nu= "+input);
   }
+
   float getX() {
     return x;
   }  
+
   String getPlaced() {
     return placed;
   }
+
   float getY() {
     return y;
   }  
+
   int getTurn() {
     return turn;
   }
+
   void setColor(int c) {
     pColor=c;
+  }  
+  int getColor() {
+    return pColor;
   }
+
   void display() {
     pushStyle();
     fill(pColor);
