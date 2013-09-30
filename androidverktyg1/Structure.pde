@@ -9,32 +9,38 @@ class Structure {
   String placed="";
   int sz=20;
   int pColor;
+
   Structure(float x, float y) {
     this.x=x;
     this.y=y;
     turn=turnCounter;
   }
 
-
   void setPlaced(String input) {
     placed=input;
     println("placed är nu= "+input);
   }
+  
   float getX() {
     return x;
   }  
+  
   String getPlaced() {
     return placed;
   }
+  
   float getY() {
     return y;
   }  
+  
   int getTurn() {
     return turn;
   }
+  
   void setColor(int c) {
     pColor=c;
   }
+  
   void display() {
     pushStyle();
     fill(pColor);

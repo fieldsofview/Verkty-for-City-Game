@@ -130,6 +130,15 @@ void draw() {
     image(bg, 0, 0, bg.width, bg.height);
   } else {
     background(240);
+    pushStyle();
+    noFill();
+    strokeWeight(0.5);
+    for (int x=0;x<width;x+=40) {
+      for (int y=0;y<height;y+=40) {
+        rect(x,y,40,40);
+      }
+    }
+    popStyle();
   }
   pushMatrix();
   posX=mouseX/scale-px;
