@@ -55,7 +55,7 @@ void onTap(float x, float y) {
   println("placed: " + info);
 }
 void onLongPress( float x, float y) {
-  saveData();
+  //saveData();
 }
 //Zoom
 void onPinch(float x, float y, float d) {

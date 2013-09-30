@@ -16,7 +16,13 @@ void playerSwitch() {
 }
 
 void goBack() {
-  pCounter--;
+  if (pCounter==0) {
+    pCounter=playerList.size()-1;
+  }
+  else {
+    pCounter--;
+  }
+  player=(String)playerList.get(pCounter);
   turnCounter--;
   rounds.remove(rounds.size() - 1);
   structList.remove(structList.size() - 1);

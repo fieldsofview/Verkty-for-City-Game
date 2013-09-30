@@ -43,7 +43,7 @@ String lastPos="";
 String input = "";
 
 String option1="Regret latest move", option2="Set White background", option3="Set map background", 
-option4="Show List of participants", option5="About";
+option4="Show List of participants", option5="Save Session", option6="About";
 
 final String P1="MaH", P2="SK", P3="RN", P4="HK";
 
@@ -72,6 +72,9 @@ void setup() {
   optionsList.add(option1);
   optionsList.add(option2);
   optionsList.add(option3);
+  optionsList.add(option4);
+  optionsList.add(option5);
+  optionsList.add(option6);
   rounds=new ArrayList<String>();
   playerList=new ArrayList<String>();
   playerColors=new ArrayList<Integer>();
@@ -99,9 +102,9 @@ void setup() {
    playerList.add("posci");
    */
   pushStyle();
-  colorMode(HSB, 360, 100, 100);
+  colorMode(HSB, 500, 100, 100);
   for (int i=0;i<playerList.size();i++) {
-    playerColors.add(color(random(360), 80, 80));
+    playerColors.add(color(random(500), 80, 80));
     //rounds.add(i+"  "+playerList.get(i));
   }
   popStyle();
@@ -130,15 +133,6 @@ void draw() {
     image(bg, 0, 0, bg.width, bg.height);
   } else {
     background(240);
-    pushStyle();
-    noFill();
-    strokeWeight(0.5);
-    for (int x=0;x<width;x+=40) {
-      for (int y=0;y<height;y+=40) {
-        rect(x,y,40,40);
-      }
-    }
-    popStyle();
   }
   pushMatrix();
   posX=mouseX/scale-px;
@@ -186,6 +180,9 @@ void onKetaiListSelection(KetaiList klist) {
   } else if (selection == option3) {
     map=true;
   } else if (selection == option4) {
+  } else if (selection == option5) {
+    saveData();
+  } else if (selection == option6) {
   }
 }
 
