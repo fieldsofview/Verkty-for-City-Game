@@ -1,3 +1,13 @@
+/*
+*Verktyg for City Game @ Fields of View
+ *
+ *By Rufael Negash & Mosa Al-Husseini
+ *
+ *www.fieldsofview.in
+ *
+ *
+ */
+
 import ketai.ui.*;
 import java.lang.String;
 
@@ -7,16 +17,17 @@ import android.view.inputmethod.EditorInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.WindowManager;
-import java.util.Arrays;
 import android.view.inputmethod.InputMethodManager;
 import android.content.Context;
 import android.inputmethodservice.KeyboardView.OnKeyboardActionListener;
 import android.view.KeyEvent;
 import android.view.View;
-import java.io.FileWriter;
+import java.util.Arrays;
+//import java.io.FileWriter;
 
 ArrayList<String> optionsList = new ArrayList<String>();
 ArrayList rounds;
+ArrayList playerColors;
 ArrayList playerList;
 ArrayList observations;
 ArrayList<Structure> structList;
@@ -63,6 +74,7 @@ void setup() {
   optionsList.add(option3);
   rounds=new ArrayList<String>();
   playerList=new ArrayList<String>();
+  playerColors=new ArrayList<Integer>();
   structList=new ArrayList<Structure>();
   timeStamp = year() + nf(month(), 2) + nf(day(), 2) + "-"  + nf(hour(), 2) +":"+ nf(minute(), 2);
   fill(0);
@@ -70,9 +82,29 @@ void setup() {
   bg=loadImage("200map.png");
 
   //Add players
-  playerList.add("Sruthi");
-  playerList.add("Mosa");
-  playerList.add("Rufael");
+  playerList.add("bharath");
+  playerList.add("rachel");
+  playerList.add("marcus");
+  playerList.add("alex");
+
+  playerList.add("maria");
+  playerList.add("hanke");
+  playerList.add("karim");
+  /* playerList.add("anja");
+   playerList.add("lena");
+   playerList.add("anna");
+   playerList.add("olivia");
+   playerList.add("manua?");
+   
+   playerList.add("posci");
+   */
+  pushStyle();
+  colorMode(HSB, 360, 100, 100);
+  for (int i=0;i<playerList.size();i++) {
+    playerColors.add(color(random(360), 80, 80));
+    //rounds.add(i+"  "+playerList.get(i));
+  }
+  popStyle();
 
   for (int i=0;i<playerList.size();i++) {
     println(i+"  "+playerList.get(i));
@@ -96,8 +128,7 @@ void draw() {
   translate(px, py); 
   if (map) { 
     image(bg, 0, 0, bg.width, bg.height);
-  }
-  else {
+  } else {
     background(240);
   }
   pushMatrix();

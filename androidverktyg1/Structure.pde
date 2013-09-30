@@ -37,8 +37,7 @@ class Structure {
   }
   void display() {
     pushStyle();
-    //fill(pColor);
-    fill(255,0,0);
+    fill(pColor);
     stroke(0);
     rect(x, y, sz, sz);
     popStyle();

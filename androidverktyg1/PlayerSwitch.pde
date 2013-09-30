@@ -9,6 +9,10 @@ void playerSwitch() {
   }
   player=(String)playerList.get(pCounter);
   println("P-info "+pCounter+" "+player);
+
+  lastStructure.setColor((Integer)playerColors.get(pCounter));
+
+  //popStyle();
 }
 
 void goBack() {

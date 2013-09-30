@@ -1,5 +1,6 @@
 //Handle keyinput and structure addaition
 void keyPressed() {
+  int exit=0;
   if (keyCode==KeyEvent.KEYCODE_ENTER) {
     playerSwitch();
     if (!addable) {
@@ -44,6 +45,7 @@ void onTap(float x, float y) {
     textSize(15);
     //playerSwitch();
     structList.add(new Structure(posX, posY));
+
     showVirtualKeyboard();
     addable=false;
   } else {
