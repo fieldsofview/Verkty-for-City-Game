@@ -5,7 +5,6 @@
  *
  *www.fieldsofview.in
  *
- *
  */
 
 import ketai.ui.*;
@@ -69,16 +68,19 @@ void setup() {
   size(displayWidth, displayHeight);
   orientation(PORTRAIT);  
   gesture = new KetaiGesture(this);
+
   optionsList.add(option1);
   optionsList.add(option2);
   optionsList.add(option3);
   optionsList.add(option4);
   optionsList.add(option5);
   optionsList.add(option6);
+
   rounds=new ArrayList<String>();
   playerList=new ArrayList<String>();
   playerColors=new ArrayList<Integer>();
   structList=new ArrayList<Structure>();
+
   timeStamp = year() + nf(month(), 2) + nf(day(), 2) + "-"  + nf(hour(), 2) +":"+ nf(minute(), 2);
   fill(0);
   //structList.add(new Structure(width/2, height/2));
@@ -101,10 +103,13 @@ void setup() {
    
    playerList.add("posci");
    */
+
   pushStyle();
-  colorMode(HSB, 500, 100, 100);
+  colorMode(HSB, 360, 100, 100);
   for (int i=0;i<playerList.size();i++) {
-    playerColors.add(color(random(500), 80, 80));
+    float indClr=360/playerList.size()*//(i+1);
+    println(indClr);
+    playerColors.add(color(indClr, 80, 80));
     //rounds.add(i+"  "+playerList.get(i));
   }
   popStyle();

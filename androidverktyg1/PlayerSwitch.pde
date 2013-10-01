@@ -1,7 +1,7 @@
 
 //Handles playerswitches between turns
 void playerSwitch() {
-  if (pCounter>playerList.size()-2||pCounter<0) {
+  if (pCounter>=playerList.size()-1||pCounter<0) {
     pCounter=0;
     lastStructure.setColor((Integer)playerColors.get(pCounter));
   } else {
