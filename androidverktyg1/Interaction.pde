@@ -1,8 +1,11 @@
+boolean extraStructure;
 //Handle keyinput and structure addaition
 void keyPressed() {
   int exit=0;
   if (keyCode==KeyEvent.KEYCODE_ENTER) {
-    playerSwitch();
+    if (extraStructure) {
+      playerSwitch();
+    }
     if (!addable) {
       lastStructure.setPlaced(input);
       println(input + " " + timeStamp + "\n");
@@ -18,6 +21,7 @@ void keyPressed() {
     }
   } else if (keyCode == BACK) {
     hideVirtualKeyboard();
+    saveData();
   } else {
     input+= key;
     println( input );
@@ -37,13 +41,15 @@ void mouseDragged() {
 
 
 //Add new structure
-void onTap(float x, float y) {
+void onLongPress(float x, float y) {
   //println("*\nSCALE  "+scale+"\nMOUSEX "+mouseX+" MOUSEY "+mouseY+"\nPOSX "+posX+" POSY "+posY+"\n*");
   if (addable) {
+    extraStructure=true;
     turnCounter++;
     s=player+"||"+turnCounter;
     textSize(15);
     //playerSwitch();
+
     structList.add(new Structure(posX, posY));
 
     showVirtualKeyboard();
@@ -54,21 +60,24 @@ void onTap(float x, float y) {
   }
   println("placed: " + info);
 }
-void onLongPress( float x, float y) {
-  if (addable) {
-    //turnCounter++;
-    s=player+"||"+turnCounter;
-    textSize(15);
-    //playerSwitch();
-    structList.add(new Structure(posX, posY));
-
-    showVirtualKeyboard();
-    addable=false;
-  } else {
-    hideVirtualKeyboard();
-    addable=true;
-  }
-}
+/*void onLongPress( float x, float y) {
+ if (addable) {
+ println("LONG ONE");
+ extraStructure=false;
+ //turnCounter++;
+ //s=player+"||"+turnCounter;
+ //textSize(15);
+ //playerSwitch();
+ 
+ structList.add(new Structure(posX, posY));
+ 
+ showVirtualKeyboard();
+ addable=false;
+ } else {
+ hideVirtualKeyboard();
+ addable=true;
+ }
+ }*/
 //Zoom
 void onPinch(float x, float y, float d) {
   println("FÖRE   "+d);

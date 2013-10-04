@@ -1,23 +1,3 @@
-/*int state = 0;
- //Override back button
- boolean surfaceKeyDown(int code, KeyEvent event) {
- if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
- if (state == 0) {
- state = 1;
- } else {
- state=0;
- }
- }
- return false;
- //return true actually also works...
- }
- 
- boolean surfaceKeyUp(int code, KeyEvent event) {
- return true;
- //return false does not work here
- }
- */
-
 void showVirtualKeyboard() {
   InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
   imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);

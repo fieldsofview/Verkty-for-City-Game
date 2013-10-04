@@ -22,7 +22,6 @@ import android.inputmethodservice.KeyboardView.OnKeyboardActionListener;
 import android.view.KeyEvent;
 import android.view.View;
 import java.util.Arrays;
-//import java.io.FileWriter;
 
 ArrayList<String> optionsList = new ArrayList<String>();
 ArrayList rounds;
@@ -30,6 +29,7 @@ ArrayList playerColors;
 ArrayList playerList;
 ArrayList observations;
 ArrayList<Structure> structList;
+RectButton[] buttons;
 
 String playerName = "";
 String timeStamp;
@@ -58,6 +58,7 @@ float scale;
 float posX, posY;
 boolean addable=true;
 boolean newPlayer=false;
+boolean locked = false;
 
 PImage bg;
 Structure lastStructure;
@@ -95,7 +96,7 @@ void setup() {
   playerList.add("maria");
   playerList.add("hanke");
   playerList.add("karim");
-  /* playerList.add("anja");
+  /*playerList.add("anja");
    playerList.add("lena");
    playerList.add("anna");
    playerList.add("olivia");
@@ -107,8 +108,8 @@ void setup() {
   pushStyle();
   colorMode(HSB, 360, 100, 100);
   for (int i=0;i<playerList.size();i++) {
-    float indClr=360/playerList.size()*//(i+1);
-    println(indClr);
+    float indClr=360/playerList.size()*(i+1);
+    //println(indClr);
     playerColors.add(color(indClr, 80, 80));
     //rounds.add(i+"  "+playerList.get(i));
   }
@@ -124,21 +125,35 @@ void setup() {
   //Init playerturns
   player=(String)playerList.get(pCounter);
 
+  buttons = new RectButton[playerList.size()];
+  int distY=0;
+  int bs=50;
+
+  for (int i=0;i<buttons.length;i++) {
+    buttons[i]=new RectButton(50, distY+=(bs+5), bs, 100, 150);
+  }
+
+
   scale=1;
 }
 int pcIndicator;
 boolean map=false;
-void draw() {
 
+void draw() {
 
   pushMatrix();
   scale(scale);
   textSize(15);
   translate(px, py); 
   if (map) { 
+    background(240);
     image(bg, 0, 0, bg.width, bg.height);
   } else {
     background(240);
+    grid();
+  }
+  for (int i=0;i<buttons.length;i++) {
+    buttons[i].display();
   }
   pushMatrix();
   posX=mouseX/scale-px;
@@ -159,10 +174,15 @@ void draw() {
   textSize(15);
   text(timeStamp, width-textWidth(timeStamp), height-20);
   textSize(30);
-  text(turnCounter+"| "+lastPos+" "+input+"\n    "+player, 10, 60);
-  /*
-  pushStyle();
-   fill(pcIndicator);
+  text(turnCounter+"| "+lastPos+" "+input+"\n"+player, 10, 60);
+
+  /* pushStyle();
+   if (pcIndicator<playerColors.size()) {
+   fill((int)playerColors.get(pcIndicator));
+   }
+   else {
+   fill((int)playerColors.get(pcIndicator));
+   }
    rect(10, 80, 15, 15);
    popStyle();*/
 }
@@ -195,5 +215,16 @@ void onKetaiListSelection(KetaiList klist) {
     saveData();
   } else if (selection == option6) {
   }
+}
+void grid() {
+  pushStyle();
+  int sc=1000, avs=100;
+  noFill();
+  for (int x=0;x<sc;x+=avs) {
+    for (int y=0;y<sc;y+=avs) {
+      rect(x, y, avs, avs);
+    }
+  }
+  popStyle();
 }
 
