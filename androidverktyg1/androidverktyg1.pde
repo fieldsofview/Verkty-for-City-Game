@@ -9,7 +9,6 @@
 
 import ketai.ui.*;
 import java.lang.String;
-
 import android.view.MotionEvent;
 import android.text.InputType;
 import android.view.inputmethod.EditorInfo;
@@ -26,7 +25,7 @@ import java.util.Arrays;
 ArrayList<String> optionsList = new ArrayList<String>();
 ArrayList rounds;
 ArrayList playerColors;
-ArrayList playerList;
+ArrayList<String>  playerList;
 ArrayList observations;
 ArrayList<Structure> structList;
 RectButton[] buttons;
@@ -41,8 +40,8 @@ String lastPos="";
 
 String input = "";
 
-String option1="Regret latest move", option2="Set White background", option3="Set map background", 
-option4="Show List of participants", option5="Save Session", option6="About";
+String option1="Regret latest move", option2="Set map background", option3="Set grid background", 
+option4="Set white background", option5="Save Session", option6="About";
 
 final String P1="MaH", P2="SK", P3="RN", P4="HK";
 
@@ -50,8 +49,10 @@ String player="";
 
 //final int P1CLR = #B44272, P2CLR = #5842B4, P3CLR = #42B49E, P4CLR = #B49042;
 
-int turnCounter=0, pCounter=0;
+int turnCounter=1, pCounter=0;
 int noOfPlayers=4;
+
+color currentcolor=100;
 
 float px, py;
 float scale;
@@ -60,12 +61,16 @@ boolean addable=true;
 boolean newPlayer=false;
 boolean locked = false;
 
-PImage bg;
+PImage map;
 Structure lastStructure;
 KetaiGesture gesture;
 KetaiList selectionList;
 
+int distY=0;
+int bs=50;
+
 void setup() {
+  println("NEW SESSION-----------------------------------------");
   size(displayWidth, displayHeight);
   orientation(PORTRAIT);  
   gesture = new KetaiGesture(this);
@@ -85,7 +90,7 @@ void setup() {
   timeStamp = year() + nf(month(), 2) + nf(day(), 2) + "-"  + nf(hour(), 2) +":"+ nf(minute(), 2);
   fill(0);
   //structList.add(new Structure(width/2, height/2));
-  bg=loadImage("200map.png");
+  map=loadImage("200map.png");
 
   //Add players
   playerList.add("bharath");
@@ -109,52 +114,55 @@ void setup() {
   colorMode(HSB, 360, 100, 100);
   for (int i=0;i<playerList.size();i++) {
     float indClr=360/playerList.size()*(i+1);
-    //println(indClr);
     playerColors.add(color(indClr, 80, 80));
-    //rounds.add(i+"  "+playerList.get(i));
   }
   popStyle();
 
   for (int i=0;i<playerList.size();i++) {
     println(i+"  "+playerList.get(i));
-    //rounds.add(i+"  "+playerList.get(i));
   }
   println("Nr of players: "+playerList.size());
-  //rounds.add("Nr of players: "+playerList.size());
 
   //Init playerturns
   player=(String)playerList.get(pCounter);
 
   buttons = new RectButton[playerList.size()];
-  int distY=0;
-  int bs=50;
+
 
   for (int i=0;i<buttons.length;i++) {
-    buttons[i]=new RectButton(50, distY+=(bs+5), bs, 100, 150);
+    buttons[i]=new RectButton(10, 70+(distY+=(bs+5)), bs, 150, 175);
   }
-
+  distY=0;
 
   scale=1;
+  println("NEW SESSION-----------------------------------------");
 }
 int pcIndicator;
-boolean map=false;
-
+int bg=1;//int myOffset=60;
 void draw() {
+  update(mouseX, mouseY);
 
   pushMatrix();
   scale(scale);
   textSize(15);
   translate(px, py); 
-  if (map) { 
+
+  switch(bg) {
+  case 0: 
     background(240);
-    image(bg, 0, 0, bg.width, bg.height);
-  } else {
+    image(map, 0, 0, map.width, map.height);
+    break;  
+  case 1: 
     background(240);
     grid();
+    break;  
+  case 2: 
+    background(240);
+    break;  
+  case 3: 
+    break;
   }
-  for (int i=0;i<buttons.length;i++) {
-    buttons[i].display();
-  }
+
   pushMatrix();
   posX=mouseX/scale-px;
   posY=mouseY/scale-py;
@@ -174,18 +182,20 @@ void draw() {
   textSize(15);
   text(timeStamp, width-textWidth(timeStamp), height-20);
   textSize(30);
-  text(turnCounter+"| "+lastPos+" "+input+"\n"+player, 10, 60);
+  text((turnCounter)+"| "+lastPos+" "+input+"\n"+player, 10, 60);
 
-  /* pushStyle();
-   if (pcIndicator<playerColors.size()) {
-   fill((int)playerColors.get(pcIndicator));
-   }
-   else {
-   fill((int)playerColors.get(pcIndicator));
-   }
-   rect(10, 80, 15, 15);
-   popStyle();*/
+  pushMatrix();
+  pushStyle();
+  for (int i=0;i<buttons.length;i++) {
+    buttons[i].display();
+    String pShort=(String)playerList.get(i);
+    fill((Integer)playerColors.get(i));
+    text(pShort.substring(0, 2).toUpperCase(), 10, 160+(i*(bs+5)));
+  }
+  popStyle();
+  popMatrix();
 }
+
 //Save data to the memory card
 void saveData() {
   String[] roundsArray=new String[rounds.size()];
@@ -207,19 +217,22 @@ void onKetaiListSelection(KetaiList klist) {
   if (selection == option1) {
     goBack();
   } else if (selection == option2) {
-    map=false;
+    bg=0;
   } else if (selection == option3) {
-    map=true;
+    bg=1;
   } else if (selection == option4) {
+    bg=2;
   } else if (selection == option5) {
     saveData();
   } else if (selection == option6) {
   }
 }
+
 void grid() {
   pushStyle();
   int sc=1000, avs=100;
   noFill();
+  stroke(150);
   for (int x=0;x<sc;x+=avs) {
     for (int y=0;y<sc;y+=avs) {
       rect(x, y, avs, avs);

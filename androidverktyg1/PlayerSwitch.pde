@@ -1,18 +1,19 @@
 
 //Handles playerswitches between turns
 void playerSwitch() {
+
+  println("P-info "+pCounter+" "+player);
+
   if (pCounter>=playerList.size()-1||pCounter<0) {
     pCounter=0;
     lastStructure.setColor((Integer)playerColors.get(pCounter));
   } else {
-    pCounter++;
     lastStructure.setColor((Integer)playerColors.get(pCounter));
+    pCounter++;
+    turnCounter++;
   }
-  pcIndicator=(Integer)playerColors.get(pCounter);
 
   player=(String)playerList.get(pCounter);
-
-  println("P-info "+pCounter+" "+player);
 }
 
 void goBack() {

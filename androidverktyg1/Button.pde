@@ -8,6 +8,7 @@ class Button {
 
   void update() {
     if (over()) {
+
       currentcolor = highlightcolor;
     } else {
       currentcolor = basecolor;
@@ -31,6 +32,7 @@ class Button {
   boolean overRect(int x, int y, int width, int height) {
     if (mouseX >= x && mouseX <= x+width && 
       mouseY >= y && mouseY <= y+height) {
+      println("YESSS");
       return true;
     } else {
       return false;
@@ -44,6 +46,24 @@ class Button {
       return true;
     } else {
       return false;
+    }
+  }
+}
+
+void update(float x, float y) {
+  if (locked == false) {
+    for (int i=0;i<buttons.length;i++) {
+      buttons[i].update();
+    }
+  } else {
+    locked = false;
+  }
+
+  if (mousePressed) {
+    for (int i=0;i<buttons.length;i++) {
+      if (buttons[i].pressed()) {
+        currentcolor = buttons[i].basecolor;
+      }
     }
   }
 }

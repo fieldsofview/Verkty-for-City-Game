@@ -1,5 +1,5 @@
 class RectButton extends Button {
-  
+
   RectButton(int ix, int iy, int isize, color icolor, color ihighlight) {
     x = ix;
     y = iy;
