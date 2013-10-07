@@ -43,11 +43,8 @@ String input = "";
 String option1="Regret latest move", option2="Set map background", option3="Set grid background", 
 option4="Set white background", option5="Save Session", option6="About";
 
-final String P1="MaH", P2="SK", P3="RN", P4="HK";
 
 String player="";
-
-//final int P1CLR = #B44272, P2CLR = #5842B4, P3CLR = #42B49E, P4CLR = #B49042;
 
 int turnCounter=1, pCounter=0;
 int noOfPlayers=4;

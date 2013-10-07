@@ -42,8 +42,6 @@ void onLongPress(float x, float y) {
   if (addable) {
     s=player+"||"+turnCounter;
     textSize(15);
-    //playerSwitch();
-
     structList.add(new Structure(posX, posY));
 
     showVirtualKeyboard();
@@ -57,9 +55,11 @@ void onLongPress(float x, float y) {
 
 //Zoom
 void onPinch(float x, float y, float d) {
-  println("FÖRE   "+d);
+  if (scale>=20) {
+    scale=20;
+  }  
   if (scale>=0.03) {
-    scale+=map(d, -200, 200, -0.1, 0.1);
+    scale+=map(d, -200, 200, -0.05, 0.05);
   } else {
     scale=0.03;
   }
